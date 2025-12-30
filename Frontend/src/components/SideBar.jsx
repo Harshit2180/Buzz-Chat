@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
 import { IconChannels, IconCommunities, IconFilter, IconMenu, IconNewChat, IconSearch, IconStatus } from '../icons/Icons';
-import { CONTACTS } from '../data/Contacts';
+import { useSelector } from 'react-redux';
+import store from '../Redux/store';
 
 export const SideBar = ({ activeChat, onChatSelect }) => {
     const [filter, setFilter] = useState('All');
+
+    const otherUsers = useSelector(store => store.user.otherUsers)    
+
+    const mappedUsers = otherUsers.map(user => ({
+        id: user._id,
+        name: user.fullName,
+        username: user.username,
+        avatar: user.profilePhoto || 'https://i.pravatar.cc/150',
+        lastMsg: '',
+        time: '',
+        unread: 0
+    }))
 
     const FilterBtn = ({ label }) => (
         <button onClick={() => setFilter(label)} className={`px-3 py-1 rounded-full text-sm transition-colors ${filter === label ? 'bg-[#008069] text-white' : 'bg-[#f0f2f5] text-gray-600 hover:bg-[#e9edef]'}`}>{label}</button>
@@ -41,19 +54,19 @@ export const SideBar = ({ activeChat, onChatSelect }) => {
 
             {/* Chat List */}
             <div className="flex-1 overflow-y-auto">
-                {CONTACTS.map(contact => (
-                    <div key={contact.id} onClick={() => onChatSelect(contact)} className={`flex items-center gap-3 px-3 py-3 cursor-pointer border-b border-gray-100 hover:bg-[#f5f6f6] ${activeChat?.id === contact.id ? 'bg-[#f0f2f5]' : ''}`}>
-                        <img src={contact.avatar} className="w-12 h-12 rounded-full object-cover" />
+                {mappedUsers.map(user => (
+                    <div key={user.id} onClick={() => onChatSelect(user)} className={`flex items-center gap-3 px-3 py-3 cursor-pointer border-b border-gray-100 hover:bg-[#f5f6f6] ${activeChat?.id === user.id ? 'bg-[#f0f2f5]' : ''}`}>
+                        <img src={user.avatar} className="w-12 h-12 rounded-full object-cover" />
                         <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-center mb-1">
-                                <h3 className="font-normal text-[#111b21] truncate text-[17px]">{contact.name}</h3>
-                                <span className={`text-xs ${contact.unread > 0 ? 'text-[#25d366] font-medium' : 'text-[#667781]'}`}>{contact.time}</span>
+                                <h3 className="font-normal text-[#111b21] truncate text-[17px]">{user.name}</h3>
+                                <span className={`text-xs ${user.unread > 0 ? 'text-[#25d366] font-medium' : 'text-[#667781]'}`}>{user.time}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                                <p className="text-sm text-[#3b4a54] truncate flex-1">{contact.lastMsg}</p>
-                                {contact.unread > 0 && (
+                                <p className="text-sm text-[#3b4a54] truncate flex-1">{user.lastMsg}</p>
+                                {user.unread > 0 && (
                                     <div className="bg-[#25d366] text-white text-xs font-medium min-w-[20px] h-5 flex items-center justify-center rounded-full px-1">
-                                        {contact.unread}
+                                        {user.unread}
                                     </div>
                                 )}
                             </div>

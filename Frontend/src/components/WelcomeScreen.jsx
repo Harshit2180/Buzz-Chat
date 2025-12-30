@@ -21,7 +21,7 @@ const WelcomeScreen = () => {
                     Make calls, share your screen and get a faster experience when you download the Windows app.
                 </p>
 
-                <button className="mt-8 bg-[#008069] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#006a57]">
+                <button className="mt-8 bg-[#008069] text-white px-6 py-2.5 rounded-full text-sm font-medium cursor-pointer hover:bg-[#006a57]">
                     Get the app
                 </button>
             </div>

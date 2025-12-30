@@ -9,7 +9,7 @@ export const ChatWindow = ({ user }) => {
     ]);
     const endRef = useRef(null);
 
-    useEffect(() => endRef.current?.scrollIntoView({ behavior: 'auto' }), [messages, user]);
+    useEffect(() => endRef.current?.scrollIntoView({ behavior: 'smooth' }), [messages, user]);
 
     const handleSend = (e) => {
         e.preventDefault();
@@ -47,10 +47,7 @@ export const ChatWindow = ({ user }) => {
                 </div>
                 {messages.map(msg => (
                     <div key={msg.id} className={`flex mb-1 ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[65%] px-3 py-2 rounded-lg shadow-sm text-[14px] text-[#111b21] 
-  flex flex-col wrap-break-word overflow-wrap-anywhere
-  ${msg.sender === 'me' ? 'bg-[#d9fdd3] self-end rounded-tr-none' : 'bg-white self-start rounded-tl-none'}`}>
-
+                        <div className={`max-w-[65%] px-3 py-2 rounded-lg shadow-sm text-[14px] text-[#111b21] flex flex-col wrap-break-word overflow-wrap-anywhere ${msg.sender === 'me' ? 'bg-[#d9fdd3] self-end rounded-tr-none' : 'bg-white self-start rounded-tl-none'}`}>
                             {/* Message Text */}
                             <span className="wrap-break-word whitespace-pre-wrap overflow-wrap-anywhere">{msg.text}</span>
 

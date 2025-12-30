@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import WelcomeScreen from "./components/WelcomeScreen";
+import Chat from "./pages/Chat";
 
 const appRouter = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: "/",
-    element: <WelcomeScreen />
+    element: <Chat />
   }
 ])
 
